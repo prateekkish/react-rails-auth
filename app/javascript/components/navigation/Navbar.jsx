@@ -21,7 +21,6 @@ function Navbar() {
           id="logout_button"
           color="inherit" 
           onClick={handleLogout}>
-          Logout
           <Logout />
         </IconButton>
       </Toolbar>
