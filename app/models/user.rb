@@ -10,4 +10,6 @@ class User < ApplicationRecord
     :recoverable,
     :rememberable,
     :validatable
+
+  has_many :referrals, dependent: :destroy
 end

@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   end
 
   root "home#index", as: :home
+
+  resources :referrals, only: [:index, :create]
   get "*path", to: "home#index", constraints: ->(request) do
     !request.xhr? && request.format.html?
   end
