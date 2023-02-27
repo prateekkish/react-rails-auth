@@ -5,7 +5,7 @@ require "test_helper"
 class SessionsControllerTest < ActionDispatch::IntegrationTest
   test "should login a user by authenticating email and password" do
     user = User.create(email: "jane@example.com", password: "pass@222")
-    post user_session_url,
+    post login_url,
       params: {
         user: {
           email: user.email,
@@ -22,7 +22,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
 
   test "should not login with invalid credentials" do
     user = User.create(email: "jane@example.com", password: "pass@222")
-    post user_session_url,
+    post login_url,
       params: {
         user: {
           email: user.email,
@@ -31,9 +31,8 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
       },
       as: :json
 
-    assert_response :success
-    res = JSON.parse(response.body)["user"]
-    assert_equal "jane@example.com", res["email"], "Email doesn't match in response"
-    assert_equal user.auth_token, res["auth_token"], "Auth token doesn't match in response"
+    assert_response :unauthorized
+    res = JSON.parse(response.body)
+    assert_equal "Invalid Credentials", res["error"]
   end
 end

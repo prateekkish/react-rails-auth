@@ -4,7 +4,7 @@ require "test_helper"
 
 class RegistrationsControllerTest < ActionDispatch::IntegrationTest
   test "should register a user" do
-    post user_registration_url,
+    post register_url,
       params: {
         user: {
           email: "jane@example.com",
