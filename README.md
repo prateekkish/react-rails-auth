@@ -1,24 +1,76 @@
-# README
+# React Rails Auth App
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Welcome to the React Rails Auth App, a full-stack web application that demonstrates authentication using Rails and React.
 
-Things you may want to cover:
+## Setup Instructions
 
-* Ruby version
+Before getting started, make sure you have Ruby 3.0.1 installed on your machine.
 
-* System dependencies
+1. Run `bin/setup` to set up the app. Make sure you enter your MySQL password in the `config/database.yml` file.
+2. Run `bin/dev` to start the server and frontend.
+3. The app should now be running at `localhost:3000`.
 
-* Configuration
+## API
 
-* Database creation
+This app is also available via API. Here are the endpoints:
 
-* Database initialization
+### Login
 
-* How to run the test suite
+`POST /login`
 
-* Services (job queues, cache servers, search engines, etc.)
+Params:
 
-* Deployment instructions
+```json
+{
+  "user": {
+    "email": "string",
+    "password": "string"
+  }
+}
+```
 
-* ...
+Returns the user with an `auth_token`.
+
+### Register
+
+`POST /register`
+
+Params:
+
+```json
+{
+  "user": {
+    "email": "string",
+    "password": "string"
+  }
+}
+```
+
+Returns the newly created user with the `auth_token` and other information.
+
+### Authenticated Routes
+
+For authenticated routes, you need to set the following headers:
+
+- `X-Auth-Email`: User email
+- `X-Auth-Token`: User auth token
+
+### Referrals
+
+`GET /referrals`
+
+Fetches all the referrals.
+
+`POST /referrals`
+
+Params:
+
+```json
+{
+  "referral": {
+    "email": "string"
+  }
+}
+```
+
+Returns the referral object.
