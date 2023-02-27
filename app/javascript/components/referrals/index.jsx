@@ -11,8 +11,10 @@ import {
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import { styled } from '@mui/material/styles';
 
-import { fetchReferrals } from "./referralQueries";
+import { fetchReferrals } from "./referralActions";
 import dateFormatter from '../../utils/dateFormatter';
+
+import CreateReferral from './CreateReferral';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -28,7 +30,6 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   '&:nth-of-type(odd)': {
     backgroundColor: theme.palette.action.hover,
   },
-  // hide last border
   '&:last-child td, &:last-child th': {
     border: 0,
   },
@@ -42,7 +43,10 @@ export function Referral() {
     <>    
       {referrals?.length > 0 && (
         <>
-          <Typography variant="h4" className="mt-3"> Your referrals </Typography>
+          <Typography variant="h4" className="mt-3"> 
+            Your referrals 
+            <CreateReferral />
+          </Typography>
           <TableContainer component={ Paper } className="py-5">
             <Table sx={{ minWidth: 600 }} aria-label="list of referrals">
               <TableHead>

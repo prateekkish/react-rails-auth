@@ -4,7 +4,7 @@ import { Link as RouterLink } from "react-router-dom";
 import { Box, Button, Link, TextField, Typography } from '@mui/material';
 
 import { registerUser } from "../../authentication/authActions";
-import { boxStyle, buttonStyle, inputStyle } from './styles';
+import { boxStyle, buttonStyle, inputStyle } from "../../styles/formStyles";
 
 function Register() {
   const { mutate: registerCommit } = registerUser();
