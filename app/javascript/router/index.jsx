@@ -11,8 +11,8 @@ const REGISTER_PATH = "/register";
 
 const AUTHENTICATED_ROUTES = [
   {
-    path: ROOT_PATH, 
-    Component: Dashboard 
+    path: ROOT_PATH,
+    Component: Dashboard
   },
 ];
 
@@ -47,6 +47,8 @@ export const Router = () => {
             key={path}
             path={path} />
         ))}
+        {/* TODO: Add a 404 page */}
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
   );

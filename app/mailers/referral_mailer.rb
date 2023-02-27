@@ -4,7 +4,7 @@ class ReferralMailer < ApplicationMailer
   def send_referral(referral)
     referer_email = referral.user.email
     base_url = Rails.application.routes.url_helpers.register_url
-    referral_url = URI.join(base_url, "/register?email=#{referral.email}&referrer=#{referer_email}}").to_s
+    referral_url = URI.join(base_url, "/register?email=#{referral.email}&referrer=#{referer_email}").to_s
 
     body = "Hi, #{referral.email}! #{referer_email} wants you to join us! Click here to sign up: #{referral_url}"
 
