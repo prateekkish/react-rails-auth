@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
+require "application_system_test_case"
 require "test_helper"
 
-class RegisterSystemTestCase < ActionDispatch::SystemTestCase
+class RegisterSystemTestCase < ApplicationSystemTestCase
   test "Register a new user" do
     email = "jane@example.com"
     assert_nil User.find_by(email: email)

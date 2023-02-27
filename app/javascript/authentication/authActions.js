@@ -26,3 +26,14 @@ export const loginUser = () => {
     },
   });
 };
+
+export const logoutUser = () => {
+  const dispatch = useDispatch();
+
+  delete axios.defaults.headers["X-Auth-Email"];
+  delete axios.defaults.headers["X-Auth-Token"];
+
+  return () => {
+    dispatch(actions.logout());
+  };
+};
