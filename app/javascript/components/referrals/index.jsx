@@ -36,38 +36,36 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 export function Referral() {
-  const { isLoading, data } = fetchReferrals();
+  const { data } = fetchReferrals();
   const referrals = data?.data?.referrals || [];
   
   return (
-    <>    
+    <>
+      <Typography variant="h4" className="mt-3"> 
+        {referrals?.length == 0 ? "Referrals" : "Your referrals"}  
+        <CreateReferral />
+      </Typography>
       {referrals?.length > 0 && (
-        <>
-          <Typography variant="h4" className="mt-3"> 
-            Your referrals 
-            <CreateReferral />
-          </Typography>
-          <TableContainer component={ Paper } className="py-5">
-            <Table sx={{ minWidth: 600 }} aria-label="list of referrals">
-              <TableHead>
-                <TableRow>
-                  <StyledTableCell>Email</StyledTableCell>
-                  <StyledTableCell align="right">Referred At</StyledTableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {referrals.map((referral) => (
-                <StyledTableRow key={ referral.id }>
-                  <StyledTableCell component="th" scope="row">
-                    { referral.email }
-                  </StyledTableCell>
-                  <StyledTableCell align="right">{ dateFormatter(referral.created_at) }</StyledTableCell>
-                </StyledTableRow>
-              ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </>
+        <TableContainer component={ Paper } className="py-5">
+          <Table sx={{ minWidth: 600 }} aria-label="list of referrals">
+            <TableHead>
+              <TableRow>
+                <StyledTableCell>Email</StyledTableCell>
+                <StyledTableCell align="right">Referred At</StyledTableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {referrals.map((referral) => (
+              <StyledTableRow key={ referral.id }>
+                <StyledTableCell component="th" scope="row">
+                  { referral.email }
+                </StyledTableCell>
+                <StyledTableCell align="right">{ dateFormatter(referral.created_at) }</StyledTableCell>
+              </StyledTableRow>
+            ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
       )}
     </>
   )

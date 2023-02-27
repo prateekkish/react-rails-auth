@@ -1,5 +1,6 @@
 import React from 'react';
 import { useForm } from "react-hook-form";
+import { useSnackbar } from "notistack";
 import { Link as RouterLink } from "react-router-dom";
 import { Box, Button, Link, TextField, Typography } from '@mui/material';
 
@@ -9,6 +10,7 @@ import { boxStyle, buttonStyle, inputStyle } from "../../styles/formStyles";
 function Register() {
   const { mutate: registerCommit } = registerUser();
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
+  const { enqueueSnackbar } = useSnackbar();
 
   const validationOptions = {
     email: { required: "Email is required" },
@@ -17,12 +19,11 @@ function Register() {
   };
 
   const handleRegistration = (data) => {
-    console.log(data);
     registerCommit({ email, password } = data);
   };
 
-  const handleFailedValidation = (errors) => {
-    console.log(errors);
+  const handleFailedValidation = () => {
+    enqueueSnackbar("Please check your input and try again!", { variant: "error" });
   };
 
   return (

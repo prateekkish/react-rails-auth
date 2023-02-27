@@ -14,7 +14,7 @@ class RegisterSystemTestCase < ApplicationSystemTestCase
     fill_in "password_confirm_field", with: "pass@222"
     click_on "Register"
 
-    assert_selector "h2", text: "Dashboard"
+    assert_selector "h4", text: "Referrals"
     assert User.find_by(email: email)
   end
 end

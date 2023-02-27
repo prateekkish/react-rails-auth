@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
+import { useSnackbar } from "notistack";
 import { 
   Box, 
   Button, 
@@ -16,6 +17,7 @@ function CreateReferral() {
   const [ isModalOpen, setIsModalOpen ] = useState(false);
   const { register, handleSubmit, formState: { errors } } = useForm();
   const { mutate: createReferralCommit } = createReferral();
+  const { enqueueSnackbar } = useSnackbar();
 
   const closeModal = () => {
     setIsModalOpen(false);
@@ -38,13 +40,19 @@ function CreateReferral() {
     p: 4,
   }
 
-  const handleFailedValidation = (errors) => {
-    console.log(errors);
+  const handleFailedValidation = () => {
+    enqueueSnackbar("Please check your input and try again!", { variant: "error" })
   };
 
   const handleRefer = (data) => {
     createReferralCommit(data, {
-      onSuccess: closeModal
+      onSuccess: () => {
+        enqueueSnackbar("Referral created successfully!", { variant: "success" });
+        closeModal();
+      },
+      onError: ({ response: { data: { error }}}) => {
+        enqueueSnackbar(error, { variant: "error" });
+      }
     });
   };
 
@@ -81,7 +89,7 @@ function CreateReferral() {
   return (
     <div className="mx-2" style={{ display: "inline" }}>
       <IconButton 
-        id="send_refer_button"
+        id="open_referral_modal"
         color="inherit" 
         onClick={() => setIsModalOpen(true)}>
         <AddCircleOutline />

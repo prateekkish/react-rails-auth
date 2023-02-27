@@ -14,7 +14,7 @@ class ReferralsController < ApplicationController
       ReferralMailer.send_referral(referral).deliver_later
       render json: { referral: referral }, status: :created
     else
-      render json: { errors: referral.errors }, status: :unprocessable_entity
+      render json: { error: referral.errors.full_messages.join(". ") }, status: :unprocessable_entity
     end
   end
 

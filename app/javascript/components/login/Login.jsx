@@ -1,6 +1,7 @@
 import React from 'react';
 import { useForm } from "react-hook-form";
 import { Link as RouterLink } from "react-router-dom";
+import { useSnackbar } from "notistack";
 
 import { Box, Button, Link, TextField, Typography } from '@mui/material';
 
@@ -10,6 +11,7 @@ import { boxStyle, buttonStyle, inputStyle } from "../../styles/formStyles";
 function Login() {
   const { mutate: loginCommit } = loginUser();
   const { register, handleSubmit, formState: { errors } } = useForm();
+  const { enqueueSnackbar } = useSnackbar();
 
   const validationOptions = {
     email: { required: "Email is required" },
@@ -17,12 +19,18 @@ function Login() {
   };
 
   const handleLogin = (data) => {
-    console.log(data);
-    loginCommit({ email, password } = data);
+    loginCommit({ email, password } = data, {
+      onSuccess: () => {
+        enqueueSnackbar("Login successful", { variant: "success" });
+      },
+      onError: ({ response: { data: { error }}}) => {
+        enqueueSnackbar(error, { variant: "error" });
+      }
+    });
   };
 
   const handleFailedValidation = (errors) => {
-    console.log(errors);
+    enqueueSnackbar("Please check your input and try again!", { variant: "error" });
   };
 
   return (
